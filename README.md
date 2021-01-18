@@ -1,5 +1,5 @@
 # menu-javascript
-Menu criado com um array de itens em javascript e injetado no document
+Menu criado com um array de links itens em javascript e injetado no document
 
 Teste online: [lucasferreiralimax.github.io/menu-javascript](https://lucasferreiralimax.github.io/menu-javascript)
 
