@@ -1,7 +1,11 @@
-// @lucasferreiralimax
+/*
+  Author: Lucas Ferreira de Lima
+  https://github.com/lucasferreiralimax
+
+*/
 
 // Variables
-let menuList = [
+const menuList = [
   {
     name: 'Home',
     link: '#test',
@@ -22,137 +26,11 @@ let menuList = [
   },
   {
     name: 'Github',
-    link: 'https://github.com/lucasferreiralimax',
+    link: 'https://github.com/lucasferreiralimax/menu-javascript',
     target: '_blank',
     icon: `<svg height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true" fill="#fff"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>`,
   },
 ]
-
-let menuStyles = `
-body {
-  padding: 100px;
-  font-family: 'Teko', sans-serif;
-  font-size: 1.8em;
-  color: #fff;
-  background: linear-gradient(-145deg, #666 30%, #222 50%);
-}
-
-body.active-menu { overflow: hidden; }
-
-a {
-  color: #008000;
-  text-decoration: none;
-}
-
-.menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 1em;
-  background: linear-gradient(-145deg, #fff 30%, transparent 50%);
-  display: flex;
-  justify-content: flex-end;
-  transition: 0.5s all;
-}
-
-.menu.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.menu-item {
-  background: #333;
-  padding: 30px 20px 25px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5em;
-  color: #fff;
-  text-decoration: none;
-  margin-right: 10px;
-  border-radius: 10px;
-  transition: 1s all;
-  line-height: 0;
-  box-sizing: border-box;
-  text-transform: uppercase;
-  position: relative;
-}
-
-.menu-item:hover {
-  transform: scale(1.05);
-  filter: invert(1);
-  box-shadow: 0 0 0 2px #fff;
-}
-
-.menu-item:active { transform: scale(0.8); }
-.menu-item:last-of-type { margin: 0; }
-.menu-item.icon { padding-left: 55px; }
-.menu-item.icon svg {
-  position: absolute;
-  height: 30px;
-  top: 12px;
-  left: 15px;
-  fill: #fff;
-}
-
-.menu-toggle {
-  font-size: 0;
-  height: 40px;
-  width: 40px;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  border-radius: 10px;
-  border: 0;
-  box-shadow: 0 0 0 2px #fff, 0 0 10px #333;
-  background: #333;
-  color: #fff;
-  transition: 1s all;
-  text-transform: uppercase;
-  display: none;
-  cursor: pointer;
-  z-index: 9;
-  outline: none;
-}
-
-.menu-toggle:hover { transform: scale(1.1); }
-.menu-toggle.active { filter: invert(1); }
-.menu-toggle.active:after { transform: translateY(-3px) rotate(45deg); }
-.menu-toggle.active:before { transform: translateY(2px) rotate(-45deg); }
-.menu-toggle:after,
-.menu-toggle:before {
-  content: '';
-  display: flex;
-  width: 100%;
-  height: 5px;
-  border-radius: 10px;
-  background: #fff;
-  transition: 0.5s all;
-}
-
-.menu-toggle:after { transform: translateY(-10px); }
-.menu-toggle:before { transform: translateY(10px); }
-
-@media (max-width: 800px) {
-  .menu {
-    background: linear-gradient(-145deg, #fff 70%, transparent 100%);
-    max-height: 100vh;
-    opacity: 0;
-    pointer-events: none;
-    bottom: 0;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .menu-item {
-    margin: 0;
-    margin-bottom: 10px;
-  }
-  .menu-item:last-of-type { margin: 0; }
-  .menu-toggle { display: block; }
-}`
 
 // Method makeMenu with root, tag and items list
 function makeMenu (items, css) {
@@ -163,50 +41,180 @@ function makeMenu (items, css) {
   // Loop for increment link menu Nav
   for(let item of items) {
     let link = document.createElement('a')
+
     link.classList.add('menu-item')
-    link.setAttribute('role', 'menuitem')
     link.setAttribute('href', item.link)
+    link.setAttribute('role', 'menuitem')
     link.setAttribute('target', item.target)
+
     if(item.icon) {
       link.classList.add('icon')
       link.innerHTML = item.icon + item.name
     } else {
       link.textContent = item.name
     }
+
     menuTag.appendChild(link)
   }
 
   // Nav settings
   let buttonMobile = document.createElement('button')
 
-  menuTag.setAttribute('id', 'nav-menu')
   menuTag.classList.add('menu')
+  menuTag.setAttribute('id', 'nav-menu')
   menuTag.setAttribute('role', 'menu')
+
+  // Click active
   menuTag.addEventListener('click', () => {
-    root.classList.remove('active-menu')
-    menuTag.classList.remove('active')
     buttonMobile.classList.remove('active')
+    menuTag.classList.remove('active')
+    root.classList.remove('active-menu')
   })
 
   // Button Mobile
   buttonMobile.classList.add('menu-toggle')
-  buttonMobile.textContent = 'menu'
   buttonMobile.setAttribute('aria-controls', 'nav-menu')
+  buttonMobile.textContent = 'menu'
+
+  // Button mobile click active
   buttonMobile.addEventListener('click', () => {
-    root.classList.toggle('active-menu')
-    menuTag.classList.toggle('active')
     buttonMobile.classList.toggle('active')
+    menuTag.classList.toggle('active')
+    root.classList.toggle('active-menu')
   })
 
   // Styles css
-  menuStyles.type = 'text/css'
   menuStyles.innerHTML = css
+  menuStyles.type = 'text/css'
 
   // Inject menu in root
   root.prepend(menuTag)
   root.prepend(buttonMobile)
   root.prepend(menuStyles)
 }
+
+const menuStyles = `
+body {
+  background: linear-gradient(-145deg, #666 30%, #222 50%);
+  color: #fff;
+  font-family: 'Teko', sans-serif;
+  font-size: 1.8em;
+  padding: 100px;
+}
+
+body.active-menu { overflow: hidden; }
+
+a {
+  color: #008000;
+  text-decoration: none;
+}
+
+.menu {
+  background: linear-gradient(-145deg, #fff 30%, transparent 50%);
+  display: flex;
+  justify-content: flex-end;
+  left: 0;
+  padding: 1em;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: 0.5s all;
+}
+
+.menu.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.menu-item {
+  align-items: center;
+  background: #333;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  display: flex;
+  font-size: 1.5em;
+  justify-content: center;
+  line-height: 0;
+  margin-right: 10px;
+  padding: 30px 20px 25px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 1s all;
+}
+
+.menu-item:hover {
+  box-shadow: 0 0 0 2px #fff;
+  filter: invert(1);
+  transform: scale(1.05);
+}
+
+.menu-item:active { transform: scale(0.8); }
+.menu-item:last-of-type { margin: 0; }
+.menu-item.icon { padding-left: 55px; }
+.menu-item.icon svg {
+  fill: #fff;
+  height: 30px;
+  left: 15px;
+  position: absolute;
+  top: 12px;
+}
+
+.menu-toggle {
+  background: #333;
+  border-radius: 10px;
+  border: 0;
+  box-shadow: 0 0 0 2px #fff, 0 0 10px #333;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+  font-size: 0;
+  height: 40px;
+  outline: none;
+  position: fixed;
+  right: 20px;
+  text-transform: uppercase;
+  top: 20px;
+  transition: 1s all;
+  width: 40px;
+  z-index: 9;
+}
+
+.menu-toggle:hover { transform: scale(1.1); }
+.menu-toggle.active { filter: invert(1); }
+.menu-toggle.active:after { transform: translateY(-3px) rotate(45deg); }
+.menu-toggle.active:before { transform: translateY(2px) rotate(-45deg); }
+.menu-toggle:after,
+.menu-toggle:before {
+  background: #fff;
+  border-radius: 10px;
+  content: '';
+  display: flex;
+  height: 5px;
+  transition: 0.5s all;
+  width: 100%;
+}
+
+.menu-toggle:after { transform: translateY(-10px); }
+.menu-toggle:before { transform: translateY(10px); }
+
+@media (max-width: 800px) {
+  .menu {
+    align-items: center;
+    background: linear-gradient(-145deg, #fff 70%, transparent 100%);
+    bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .menu-item { margin: 0 0 10px; }
+  .menu-item:last-of-type { margin: 0; }
+  .menu-toggle { display: block; }
+}`
 
 // Run method makeMenu with properties
 makeMenu(menuList, menuStyles)
